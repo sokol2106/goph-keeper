@@ -1,0 +1,10 @@
+{
+  "listen" : "localhost:8080",
+  "postgres" : {
+    "host" : "localhost",
+    "port" : "5432",
+    "user" : "postgres",
+    "password": "12345678",
+    "database" : "gophkeeper"
+  }
+}
