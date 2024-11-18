@@ -11,11 +11,11 @@ func Router(h *handlers.Handlers) chi.Router {
 	router := chi.NewRouter()
 
 	// middleware
-	router.Use(middleware.СompressionResponseRequest)
+	//router.Use(middleware.СompressionResponseRequest)
 	router.Use(middleware.LoggingResponseRequest)
-	////	router.Use(func(handlerF http.Handler) http.Handler {
-	//	return middleware.TokenResponseRequest(h.srvShortURL.GetAuthorization(), handlerF)
-	//	})
+	router.Use(func(handlerF http.Handler) http.Handler {
+		return middleware.TokenResponseRequest(h.GetServiceGophKeeper(), handlerF)
+	})
 
 	// router
 	// user
@@ -27,7 +27,7 @@ func Router(h *handlers.Handlers) chi.Router {
 	// data text
 	router.Post("/api/data/text", http.HandlerFunc(h.CreateDataText))
 	router.Get("/api/data/text/{uuid}", http.HandlerFunc(h.GetDataText))
-	router.Delete("/api/user/text/{uuid}", http.HandlerFunc(h.DeleteDataText))
+	router.Delete("/api/data/text/{uuid}", http.HandlerFunc(h.DeleteDataText))
 
 	// data byte
 	router.Post("/api/data/binary", http.HandlerFunc(h.CreateDataBinary))

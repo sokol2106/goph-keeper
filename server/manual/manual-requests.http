@@ -1,0 +1,86 @@
+
+### Регистрация
+POST http://localhost:8080/api/register
+Content-Type: application/json
+
+{
+  "login": "Ivan1",
+  "password_hash": "12345678"
+}
+
+### Авторизация
+POST http://localhost:8080/api/authorization
+Content-Type: application/json
+
+{
+  "login": "Ivan1",
+  "password_hash": "12345678"
+}
+
+### Выйти
+POST http://localhost:8080/api/logout
+Content-Type: application/json
+
+{
+  "login": "Ivan"
+}
+
+
+
+### Создание позиции с текстовыми данными
+POST http://localhost:8080/api/data/text
+Content-Type: application/json
+
+{
+  "data": "test text data 2"
+}
+
+### Получение текстовых данных
+GET http://localhost:8080/api/data/text/3793cd7c-e8a8-4784-9b67-9a7ffa6694ad
+
+
+### Удаление текстовых данных
+DELETE http://localhost:8080/api/data/text/3793cd7c-e8a8-4784-9b67-9a7ffa6694ad
+
+
+
+
+### Создание позиции с текстовыми данными
+POST http://localhost:8080/api/data/binary
+Content-Type: application/json
+
+{
+  "filename" : "testfile.json",
+  "data": "dGVzdCB0ZXh0IGRhdGEgMg=="
+}
+
+### Получение текстовых данных
+GET http://localhost:8080/api/data/binary/4eba8a45-eb35-4af3-88d3-8a59dd9fcbeb
+
+
+### Удаление текстовых данных
+DELETE http://localhost:8080/api/data/binary/4eba8a45-eb35-4af3-88d3-8a59dd9fcbeb
+
+
+
+
+### Создание позиции с текстовыми данными
+POST http://localhost:8080/api/data/card
+Content-Type: application/json
+
+{
+  "card_number": "4111111111111111",
+  "cardholder_name": "John Doe",
+  "expiration_date": "12/24",
+  "cvv_hash": "f0eae6c8d6784b243ec1393a74e1ab45"
+}
+
+### Получение текстовых данных
+GET http://localhost:8080/api/data/card/e1f98249-3379-4fcf-8faf-cd8051c21adf
+
+
+### Удаление текстовых данных
+DELETE http://localhost:8080/api/data/card/e1f98249-3379-4fcf-8faf-cd8051c21adf
+
+
+
