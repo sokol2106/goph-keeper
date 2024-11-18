@@ -19,10 +19,19 @@ type PostgreSQLSettings struct {
 	Database string `mapstructure:"database"`
 }
 
-func NewConfig() *Config {
+func NewConfig(listen, pg_host, pg_port, user, password, db string) *Config {
+	if listen == "" {
+		listen = DefaultListen
+	}
 	return &Config{
-		Listen:   DefaultListen,
-		Postgres: PostgreSQLSettings{},
+		Listen: listen,
+		Postgres: PostgreSQLSettings{
+			Host:     pg_host,
+			Port:     pg_port,
+			User:     user,
+			Password: password,
+			Database: db,
+		},
 	}
 }
 
