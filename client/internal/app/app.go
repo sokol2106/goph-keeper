@@ -12,7 +12,7 @@ import (
 
 func Run(cnf *config.Config) {
 	gophKeeper := service.NewGophKeeperClient()
-	handlers := handlers.NewHandlers(gophKeeper)
+	handlers := handlers.NewHandlers(gophKeeper, *cnf)
 	err := handlers.Run()
 	if err != nil {
 		fmt.Fprintln(os.Stdout, err.Error())

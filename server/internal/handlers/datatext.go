@@ -42,7 +42,7 @@ func (h *Handlers) CreateDataText(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handlers) GetDataText(w http.ResponseWriter, r *http.Request) {
-	handlerStatus := http.StatusCreated
+	handlerStatus := http.StatusOK
 	key := chi.URLParam(r, "uuid")
 	userID, ok := service.GetCurrentUserID(r.Context())
 	if !ok {
