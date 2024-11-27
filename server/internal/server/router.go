@@ -21,7 +21,6 @@ func Router(h *handlers.Handlers) chi.Router {
 	// user
 	router.Post("/api/register", http.HandlerFunc(h.RegisterUser))
 	router.Post("/api/authorization", http.HandlerFunc(h.AuthorizationUser))
-	router.Post("/api/logout", http.HandlerFunc(h.LogoutUser))
 
 	// data
 	// data text

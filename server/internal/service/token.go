@@ -61,17 +61,11 @@ func ReadToken(cookValue string) (string, error) {
 }
 
 // GenerateEncryptionKey создает криптографически безопасный ключ шифрования.
-// length — длина ключа в байтах.
 func GenerateEncryptionKey() (string, error) {
-	// Создаем слайс для хранения случайных байт.
 	key := make([]byte, 32)
-
-	// Заполняем слайс криптографически случайными байтами.
 	_, err := rand.Read(key)
 	if err != nil {
 		return "", fmt.Errorf("failed to generate encryption key: %w", err)
 	}
-
-	// Кодируем ключ в base64 для удобной передачи и хранения.
 	return base64.StdEncoding.EncodeToString(key), nil
 }

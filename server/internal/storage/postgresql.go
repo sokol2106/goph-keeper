@@ -57,15 +57,17 @@ func (pstg *PostgreSQL) Close() error {
 }
 
 func (pstg *PostgreSQL) SelectUser(user model.User) (model.UserResponse, error) {
-	query := `SELECT private_user_key FROM private_user WHERE login = $1 and password_hash = $2 `
+	query := `SELECT private_user_key, encryption_key FROM private_user WHERE login = $1 and password_hash = $2 `
 
 	var PrivateUserKey uuid.UUID
-	err := pstg.db.QueryRow(query, user.Login, user.PasswordHash).Scan(&PrivateUserKey)
+	var encryptionKey string
+
+	err := pstg.db.QueryRow(query, user.Login, user.PasswordHash).Scan(&PrivateUserKey, &encryptionKey)
 	if err != nil {
 		return model.UserResponse{}, err
 	}
 
-	return model.UserResponse{PrivateUserKey: PrivateUserKey}, nil
+	return model.UserResponse{PrivateUserKey: PrivateUserKey, EncryptionKey: encryptionKey}, nil
 }
 
 func (pstg *PostgreSQL) InsertUser(user model.User) (model.UserResponse, error) {

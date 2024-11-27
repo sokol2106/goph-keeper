@@ -5,6 +5,11 @@ import (
 	"net/http"
 )
 
+// RegisterUser обрабатывает HTTP-запрос на регистрацию нового пользователя.
+// Этот обработчик получает данные для регистрации из тела запроса,
+// вызывает метод для регистрации пользователя, а затем возвращает ответ с результатом.
+// В случае успешной регистрации возвращается статус 201 (Created) и тело ответа с результатами.
+// Также устанавливается cookie с токеном авторизации пользователя.
 func (h *Handlers) RegisterUser(w http.ResponseWriter, r *http.Request) {
 	handlerStatus := http.StatusCreated
 	body, err := io.ReadAll(r.Body)
@@ -36,6 +41,11 @@ func (h *Handlers) RegisterUser(w http.ResponseWriter, r *http.Request) {
 	w.Write(resultBody)
 }
 
+// AuthorizationUser обрабатывает HTTP-запрос на авторизацию пользователя.
+// Этот обработчик получает данные для авторизации из тела запроса,
+// вызывает метод для авторизации пользователя, а затем возвращает ответ с результатом.
+// В случае успешной авторизации возвращается статус 201 (Created) и тело ответа с результатами.
+// Также устанавливается cookie с токеном авторизации пользователя.
 func (h *Handlers) AuthorizationUser(w http.ResponseWriter, r *http.Request) {
 	handlerStatus := http.StatusCreated
 	body, err := io.ReadAll(r.Body)
@@ -64,8 +74,4 @@ func (h *Handlers) AuthorizationUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(handlerStatus)
 	w.Write(resultBody)
-}
-
-func (h *Handlers) LogoutUser(w http.ResponseWriter, r *http.Request) {
-	return
 }

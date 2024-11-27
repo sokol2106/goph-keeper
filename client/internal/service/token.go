@@ -21,19 +21,19 @@ type Token struct {
 
 // ReadToken проверяет валидность JWT-токена и возвращает UserID из токена.
 // Возвращает UserID и ошибку, если токен недействителен.
-func ReadToken(cookValue string) (string, error) {
+func ReadToken(cookValue string) (Token, error) {
 	token := &Token{}
 
 	res, err := jwt.ParseWithClaims(cookValue, token, func(t *jwt.Token) (interface{}, error) {
 		return []byte(secretKey), nil
 	})
 	if err != nil {
-		return "", err
+		return Token{}, err
 	}
 
 	if !res.Valid {
-		return "", errors.New("Token is not valid")
+		return Token{}, errors.New("Token is not valid")
 	}
 
-	return token.UserKey, nil
+	return *token, nil
 }
