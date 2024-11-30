@@ -1,6 +1,7 @@
 package test
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/stretchr/testify/require"
@@ -66,7 +67,7 @@ func (suite *ServerTestSuite) TestAddUser() {
 func (suite *ServerTestSuite) TestText() {
 	reqBody := `{"data": "text data test suite"}`
 
-	request, err := http.NewRequest("POST", suite.server.URL+"/api/data/text", strings.NewReader(reqBody))
+	request, err := http.NewRequest(http.MethodPost, suite.server.URL+"/api/data/text", strings.NewReader(reqBody))
 	require.NoError(suite.T(), err)
 	request.AddCookie(suite.cookie)
 
@@ -80,6 +81,26 @@ func (suite *ServerTestSuite) TestText() {
 	err = json.NewDecoder(resp.Body).Decode(&userResponse)
 	require.NoError(suite.T(), err)
 	resp.Body.Close()
+
+	// get
+	request1, err := http.NewRequest(http.MethodGet, suite.server.URL+"/api/data/text/"+userResponse.DataTextKey.String(), bytes.NewBuffer(nil))
+	require.NoError(suite.T(), err)
+	request1.AddCookie(suite.cookie)
+	resp1, err := client.Do(request1)
+	require.NoError(suite.T(), err)
+	require.Equal(suite.T(), http.StatusOK, resp1.StatusCode)
+	userResponse1 := model.DataTextResponse{}
+	err = json.NewDecoder(resp1.Body).Decode(&userResponse1)
+	require.NoError(suite.T(), err)
+	resp.Body.Close()
+
+	// del
+	request2, err := http.NewRequest(http.MethodDelete, suite.server.URL+"/api/data/text/"+userResponse.DataTextKey.String(), bytes.NewBuffer(nil))
+	require.NoError(suite.T(), err)
+	request2.AddCookie(suite.cookie)
+	resp2, err := client.Do(request2)
+	require.NoError(suite.T(), err)
+	require.Equal(suite.T(), http.StatusOK, resp2.StatusCode)
 }
 
 func (suite *ServerTestSuite) TestBinary() {
@@ -95,10 +116,30 @@ func (suite *ServerTestSuite) TestBinary() {
 	require.Equal(suite.T(), http.StatusCreated, resp.StatusCode)
 
 	// Чтение тела ответа
-	userResponse := model.DataBinaryResponse{}
-	err = json.NewDecoder(resp.Body).Decode(&userResponse)
+	binaryResponse := model.DataBinaryResponse{}
+	err = json.NewDecoder(resp.Body).Decode(&binaryResponse)
 	require.NoError(suite.T(), err)
 	resp.Body.Close()
+
+	// get
+	request1, err := http.NewRequest(http.MethodGet, suite.server.URL+"/api/data/binary/"+binaryResponse.DataBinaryKey.String(), bytes.NewBuffer(nil))
+	require.NoError(suite.T(), err)
+	request1.AddCookie(suite.cookie)
+	resp1, err := client.Do(request1)
+	require.NoError(suite.T(), err)
+	require.Equal(suite.T(), http.StatusOK, resp1.StatusCode)
+	binaryResponse1 := model.DataBinaryResponse{}
+	err = json.NewDecoder(resp1.Body).Decode(&binaryResponse1)
+	require.NoError(suite.T(), err)
+	resp.Body.Close()
+
+	// del
+	request2, err := http.NewRequest(http.MethodDelete, suite.server.URL+"/api/data/binary/"+binaryResponse.DataBinaryKey.String(), bytes.NewBuffer(nil))
+	require.NoError(suite.T(), err)
+	request2.AddCookie(suite.cookie)
+	resp2, err := client.Do(request2)
+	require.NoError(suite.T(), err)
+	require.Equal(suite.T(), http.StatusOK, resp2.StatusCode)
 }
 
 func (suite *ServerTestSuite) TestCard() {
@@ -118,10 +159,30 @@ func (suite *ServerTestSuite) TestCard() {
 	require.Equal(suite.T(), http.StatusCreated, resp.StatusCode)
 
 	// Чтение тела ответа
-	userResponse := model.DataCreditCardResponse{}
-	err = json.NewDecoder(resp.Body).Decode(&userResponse)
+	cardResponse := model.DataCreditCardResponse{}
+	err = json.NewDecoder(resp.Body).Decode(&cardResponse)
 	require.NoError(suite.T(), err)
 	resp.Body.Close()
+
+	// get
+	request1, err := http.NewRequest(http.MethodGet, suite.server.URL+"/api/data/card/"+cardResponse.DataCreditCardKey.String(), bytes.NewBuffer(nil))
+	require.NoError(suite.T(), err)
+	request1.AddCookie(suite.cookie)
+	resp1, err := client.Do(request1)
+	require.NoError(suite.T(), err)
+	require.Equal(suite.T(), http.StatusOK, resp1.StatusCode)
+	cardResponse1 := model.DataCreditCardResponse{}
+	err = json.NewDecoder(resp1.Body).Decode(&cardResponse1)
+	require.NoError(suite.T(), err)
+	resp.Body.Close()
+
+	// del
+	request2, err := http.NewRequest(http.MethodDelete, suite.server.URL+"/api/data/card/"+cardResponse.DataCreditCardKey.String(), bytes.NewBuffer(nil))
+	require.NoError(suite.T(), err)
+	request2.AddCookie(suite.cookie)
+	resp2, err := client.Do(request2)
+	require.NoError(suite.T(), err)
+	require.Equal(suite.T(), http.StatusOK, resp2.StatusCode)
 }
 
 func TestServerSuite(t *testing.T) {

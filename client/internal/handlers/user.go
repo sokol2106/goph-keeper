@@ -10,6 +10,10 @@ import (
 	"net/http"
 )
 
+// RegisterUser создает команду для регистрации пользователя.
+// При выполнении команды запрашивает у пользователя логин и пароль,
+// формирует запрос к серверу для регистрации пользователя.
+// В случае успеха сохраняет cookie от сервера.
 func (h *Handlers) RegisterUser() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "reg",
@@ -57,6 +61,11 @@ func (h *Handlers) RegisterUser() *cobra.Command {
 	return cmd
 }
 
+
+// AuthorizationUser создает команду для авторизации пользователя.
+// При выполнении команды запрашивает у пользователя логин и пароль,
+// формирует запрос к серверу для авторизации.
+// В случае успеха сохраняет cookie от сервера.
 func (h *Handlers) AuthorizationUser() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "aut",

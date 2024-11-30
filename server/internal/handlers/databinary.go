@@ -7,6 +7,10 @@ import (
 	"server/internal/service"
 )
 
+// CreateDataBinary обрабатывает HTTP-запрос на добавление бинарных данных.
+// Этот обработчик получает бинарные данные в теле запроса, проверяет авторизацию пользователя,
+// а затем вставляет данные в систему. В случае успешной операции возвращает статус 201 (Created).
+// В случае ошибки возвращается соответствующий HTTP-статус.
 func (h *Handlers) CreateDataBinary(w http.ResponseWriter, r *http.Request) {
 	handlerStatus := http.StatusCreated
 	body, err := io.ReadAll(r.Body)
@@ -41,8 +45,12 @@ func (h *Handlers) CreateDataBinary(w http.ResponseWriter, r *http.Request) {
 	w.Write(resultBody)
 }
 
+// GetDataBinary обрабатывает HTTP-запрос на получение бинарных данных по UUID.
+// Этот обработчик извлекает UUID из параметров URL, проверяет авторизацию пользователя,
+// а затем возвращает бинарные данные для указанного ключа. В случае успешной операции возвращает статус 200 (OK).
+// В случае ошибки возвращается соответствующий HTTP-статус.
 func (h *Handlers) GetDataBinary(w http.ResponseWriter, r *http.Request) {
-	handlerStatus := http.StatusCreated
+	handlerStatus := http.StatusOK
 	key := chi.URLParam(r, "uuid")
 	userID, ok := service.GetCurrentUserID(r.Context())
 	if !ok {
@@ -64,6 +72,10 @@ func (h *Handlers) GetDataBinary(w http.ResponseWriter, r *http.Request) {
 	w.Write(resultBody)
 }
 
+// DeleteDataBinary обрабатывает HTTP-запрос на удаление бинарных данных по UUID.
+// Этот обработчик извлекает UUID из параметров URL, проверяет авторизацию пользователя,
+// а затем удаляет данные из системы. В случае успешной операции возвращает статус 200 (OK).
+// В случае ошибки возвращается соответствующий HTTP-статус.
 func (h *Handlers) DeleteDataBinary(w http.ResponseWriter, r *http.Request) {
 	handlerStatus := http.StatusOK
 	key := chi.URLParam(r, "uuid")
