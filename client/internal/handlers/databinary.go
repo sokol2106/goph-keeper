@@ -71,9 +71,9 @@ func (h *Handlers) CreateDataBinary() *cobra.Command {
 	// Устанавливаем флаги как обязательные
 	cmd.MarkFlagRequired("name")
 	cmd.MarkFlagRequired("path")
-
 	return cmd
 }
+
 
 // GetDataBinary создает команду для запроса бинарных данных по UUID.
 // При выполнении команды отправляется запрос на сервер с указанным UUID.
@@ -88,6 +88,7 @@ func (h *Handlers) GetDataBinary() *cobra.Command {
 		Use:   "getBinary",
 		Short: "Запрос бинарных данных",
 		Run: func(cmd *cobra.Command, args []string) {
+
 			if _, err := uuid.Parse(id); err != nil {
 				log.Printf("UUID Parser: %v", err)
 				return
@@ -127,6 +128,7 @@ func (h *Handlers) GetDataBinary() *cobra.Command {
 	cmd.MarkFlagRequired("key")
 	return cmd
 }
+
 
 // DeleteDataBinary создает команду для удаления бинарных данных по UUID.
 // При выполнении команды отправляется запрос на сервер с указанным UUID для удаления данных.
@@ -168,6 +170,7 @@ func (h *Handlers) DeleteDataBinary() *cobra.Command {
 			}
 		},
 	}
+
 
 	cmd.Flags().StringVarP(&id, "key", "k", "", "UUID данных")
 	cmd.MarkFlagRequired("key")

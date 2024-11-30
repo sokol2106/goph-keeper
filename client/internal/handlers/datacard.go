@@ -191,6 +191,7 @@ func (h *Handlers) DeleteDataCard() *cobra.Command {
 		},
 	}
 
+
 	cmd.Flags().StringVarP(&id, "key", "k", "", "UUID данных")
 	cmd.MarkFlagRequired("key")
 	return cmd

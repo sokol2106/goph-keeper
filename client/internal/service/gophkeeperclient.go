@@ -28,6 +28,7 @@ func (gk *GophKeeperClient) GetToken() Token {
 	return gk.token
 }
 
+
 func (gk *GophKeeperClient) SetCookie(cookie *http.Cookie) error {
 	var err error
 	gk.cookie = cookie

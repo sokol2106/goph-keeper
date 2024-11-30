@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"bytes"
+
 	"client/internal/model"
 	"encoding/json"
 	"fmt"
@@ -64,6 +65,7 @@ func (h *Handlers) CreateDataText() *cobra.Command {
 	return cmd
 }
 
+
 // GetDataText создает команду для запроса текстовых данных по их UUID.
 // При выполнении команды отправляется запрос на сервер с указанным UUID.
 // Сервер возвращает текст, который выводится на экран.
@@ -112,10 +114,12 @@ func (h *Handlers) GetDataText() *cobra.Command {
 		},
 	}
 
+
 	cmd.Flags().StringVarP(&id, "key", "k", "", "UUID данных")
 	cmd.MarkFlagRequired("key")
 	return cmd
 }
+
 
 // DeleteDataText создает команду для удаления текстовых данных по их UUID.
 // При выполнении команды отправляется запрос на сервер с указанным UUID для удаления данных.
